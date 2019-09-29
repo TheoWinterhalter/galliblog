@@ -38,6 +38,7 @@ let () =
   copy "content/blog.css" "website/blog.css" ;
   let entry = Article.from_file "content/test.md" in
   let output = open_out "website/index.html" in
+  let content = Markdown.to_html (Markdown.from_string (Article.content entry)) in
   let page =
     html [] [
       head [] [
@@ -51,14 +52,14 @@ let () =
         link [ rel "stylesheet" ; href ("blog.css") ] ;
       ] ;
       body [] [
-        article [] [
+        article [] (
           header [] [
             h1 [] [ text (Article.title entry) ] ;
             p [] [ text (authors_text (Article.authors entry))] ;
             p [] [ text (date_text (Article.date entry))]
-          ] ;
-          p [] [ text (Article.content entry) ]
-        ]
+          ] ::
+          content
+        )
       ]
     ]
   in
