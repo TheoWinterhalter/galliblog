@@ -33,7 +33,7 @@ let parse_with_errors lexbuf =
     Article_parser.file Article_lexer.token lexbuf
   with
   | Article_lexer.SyntaxError msg ->
-    error "%s : %s" (print_position lexbuf) msg
+    error "%s : %s (lexing error)" (print_position lexbuf) msg
   | Article_parser.Error ->
     error "%s : Syntax Error" (print_position lexbuf)
 

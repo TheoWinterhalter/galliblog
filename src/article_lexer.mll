@@ -24,34 +24,37 @@ rule token = parse
     { Lexing.new_line lexbuf ; token lexbuf }
   | eof
     { EOF }
-  | "\"" { STRING (read_string (Buffer.create 13) lexbuf) }
-  | ":"  { COLON }
-  | "/" { SLASH }
-  | "," { COMMA }
-  | "--" "-"+ newline { CONTENT (read_content (Buffer.create 13) lexbuf) }
-  | ['0'-'9']+ { INT (int_of_string (Lexing.lexeme lexbuf)) }
-  | [^ '\\' '\n' ':' '(' ' ' '\009' '\012'] +
+  | '"' { QSTRING (read_string (Buffer.create 13) lexbuf) }
+  | ':'  { COLON }
+  | '/' { SLASH }
+  | ',' { COMMA }
+  | "--" '-'+ newline { Lexing.new_line lexbuf ; CONTENT (read_content (Buffer.create 100) lexbuf) }
+  | ['0'-'9']+ as i { INT (int_of_string i) }
+  | [^ '\\' '\n' ':' '(' ' ' '\009' '\012' '"' '/'] + as id
     {
-      try Hashtbl.find keywords_table (Lexing.lexeme lexbuf)
-      with Not_found -> STRING (Lexing.lexeme lexbuf)
+      try Hashtbl.find keywords_table id
+      with Not_found -> STRING id
     }
-  | _  {raise (SyntaxError ("Syntax Error, unknown char."))}
+  | _  { raise (SyntaxError ("Syntax Error, unknown char.")) }
 
 and read_string buf = parse
-  | "\\\"" { Buffer.add_char buf '"' ; read_string buf lexbuf }
-  | "\"" { Buffer.contents buf }
-  | newline { Lexing.new_line lexbuf ;
-              Buffer.add_char buf '\n' ;
-              read_string buf lexbuf }
-  | [^ '"' '\r' '\n']+
-    {
-      Buffer.add_string buf (Lexing.lexeme lexbuf) ;
-      read_string buf lexbuf
-    }
+  | [^ '"' '\n' '\\']+ as s { Buffer.add_string buf s ; read_string buf lexbuf }
+  | '\\' '"' { Buffer.add_char buf '"' ; read_string buf lexbuf }
+  | '\\' { Buffer.add_char buf '\\' ; read_string buf lexbuf }
+  | '"' { Buffer.contents buf }
+  | '\n'
+    { Lexing.new_line lexbuf ;
+      Buffer.add_char buf '\n' ;
+      read_string buf lexbuf }
   | eof { raise (SyntaxError "String not terminated") }
-  | _ { assert false }
+  | _ { raise (SyntaxError "Don't know how to handle") }
 
 and read_content buf = parse
-  | _* { Buffer.add_string buf (Lexing.lexeme lexbuf) ; read_content buf lexbuf }
+  | [^ '\n']+ as s
+    { Buffer.add_string buf s ; read_content buf lexbuf }
+  | '\n'
+    { Lexing.new_line lexbuf ;
+      Buffer.add_char buf '\n' ;
+      read_content buf lexbuf }
   | eof { Buffer.contents buf }
   | _ { assert false }
