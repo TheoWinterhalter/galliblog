@@ -40,7 +40,7 @@ type level = H1 | H2 | H3 | H4 | H5 | H6
 
 (** Code block *)
 type code_block = {
-  lang : string option ;
+  lang : string ;
   code : string
 }
 
