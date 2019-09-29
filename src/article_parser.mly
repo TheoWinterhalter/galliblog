@@ -1,7 +1,6 @@
 %token EOF
 %token COLON SLASH COMMA
 %token TITLE AUTHORS DATE
-%token <string> STRING
 %token <string> QSTRING
 %token <int> INT
 %token <string> CONTENT
@@ -10,8 +9,12 @@
 %%
 
 file:
-  | l = value_list ; c = CONTENT { (List.rev l, c) }
+  | l = value_list ; c = maybe_content { (List.rev l, c) }
   ;
+
+maybe_content:
+  | c = CONTENT { c }
+  | EOF { "" }
 
 value_list:
   | (* Empty list *) { [] }

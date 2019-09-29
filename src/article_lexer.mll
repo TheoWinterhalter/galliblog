@@ -33,7 +33,7 @@ rule token = parse
   | [^ '\\' '\n' ':' '(' ' ' '\009' '\012' '"' '/'] + as id
     {
       try Hashtbl.find keywords_table id
-      with Not_found -> STRING id
+      with Not_found -> raise (SyntaxError "Unknown keyword")
     }
   | _  { raise (SyntaxError ("Syntax Error, unknown char.")) }
 
