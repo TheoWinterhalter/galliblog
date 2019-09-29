@@ -1,0 +1,15 @@
+opam-version: "2.0"
+name: "galliblog"
+version: "0.1"
+synopsis: "Blog generation for Gallinette"
+description: """
+TODO
+"""
+maintainer: ["Théo Winterhalter <theo.winterhalter@gmail.com>"]
+authors: ["Théo Winterhalter <theo.winterhalter@gmail.com>"]
+license: ""
+homepage: ""
+bug-reports: "https://github.com/TheoWinterhalter/galliblog/issues"
+dev-repo: "https://github.com/TheoWinterhalter/galliblog"
+depends: [ "ocaml" "dune" ]
+build: ["dune" "build" "-p" docaml]

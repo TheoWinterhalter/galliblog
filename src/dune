@@ -1,0 +1,4 @@
+(executable
+  (name galliblog)
+  (public_name galliblog)
+  (libraries unix str))
