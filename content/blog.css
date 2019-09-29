@@ -1,0 +1,45 @@
+/*** GENERAL ***/
+
+body, div, header, footer, main, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  /*background-color: rgb(241, 237, 237);*/
+  background-color: rgb(249, 247, 247);
+}
+
+a {
+  text-decoration: none;
+  color: rgb(29, 125, 203);
+}
+
+a:hover {
+  color: rgb(43, 159, 252);
+}
+
+a.href {
+  cursor: pointer;
+}
+
+/*** BLOG POSTS ***/
+
+article {
+  padding: 0.5em;
+}
+
+article header h1 {
+  font-size: 3em;
+}
+
+article header p {
+  color: rgb(99, 99, 99);
+  margin: 0;
+  font-size: 0.8em;
+}
