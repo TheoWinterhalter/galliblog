@@ -6,5 +6,5 @@
 (executable
   (name galliblog)
   (public_name galliblog)
-  (modules_without_implementation article_ast)
+  (modules_without_implementation article_ast markdown_ast)
   (libraries unix str))

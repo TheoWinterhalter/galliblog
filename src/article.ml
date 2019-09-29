@@ -77,6 +77,11 @@ let from_file f =
   let input = open_in f in
   let lexbuf = from_channel input in
   lexbuf.lex_curr_p <- { lexbuf.lex_curr_p with pos_fname = f } ;
+  (* By parsing the content later, we are able to use information from
+     the header to choose which parser.
+     It also allows us to deal with content taken from a different source
+     than the file itself.
+   *)
   let (ast, content) = parse_with_errors lexbuf in
   close_in input ;
   let default = {
