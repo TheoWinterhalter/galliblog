@@ -83,6 +83,9 @@ let from_file f =
      than the file itself.
    *)
   let (ast, content) = parse_with_errors lexbuf in
+  (* Just trying for now *)
+  let clexbuf = from_string content in
+  let content' = Markdown_parser.file Markdown_lexer.token clexbuf in
   close_in input ;
   let default = {
     title = None ;

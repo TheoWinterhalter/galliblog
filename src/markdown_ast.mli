@@ -30,10 +30,17 @@ type text_el =
 | Bold of text
 | Strike of text
 | Img of img
+| Link of anchor
 | InlineCode of string
 
 (** Markdown rich text *)
 and text = text_el list
+
+(** Anchor *)
+and anchor = {
+  a_txt : text ;
+  a_ref : source
+}
 
 (** Header level *)
 type level = H1 | H2 | H3 | H4 | H5 | H6
