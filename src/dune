@@ -1,7 +1,7 @@
-(ocamllex article_lexer markdown_lexer)
+(ocamllex article_lexer markdown_lexer md_sep_lexer)
 
 (menhir
-  (modules article_parser markdown_parser))
+  (modules article_parser markdown_parser md_sep_parser))
 
 (executable
   (name galliblog)

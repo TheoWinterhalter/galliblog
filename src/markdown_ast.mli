@@ -60,3 +60,13 @@ type el =
 
 (** Markdown AST *)
 type t = el list
+
+(** Markdown first-pass AST *)
+type pre =
+| BlockQuote of string
+| PHeader of level * string
+| PCode of string * string
+| OrderedList of int * string list
+| UnorderedList of string list
+| PReference of string * string * string option
+| PParagraph of string

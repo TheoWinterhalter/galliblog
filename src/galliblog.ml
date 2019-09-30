@@ -38,7 +38,8 @@ let () =
   copy "content/blog.css" "website/blog.css" ;
   let entry = Article.from_file "content/test.md" in
   let output = open_out "website/index.html" in
-  let content = Markdown.to_html (Markdown.from_string (Article.content entry)) in
+  (* let content = Markdown.to_html (Markdown.from_string (Article.content entry)) in *)
+  let content = [ text (Article.content entry) ] in
   let page =
     html [] [
       head [] [
