@@ -12,18 +12,21 @@
 %%
 
 file:
-  | q = quote ; f = file { BlockQuote q :: f }
-  | c = CODE ; f = file { PCode (fst c, snd c) :: f }
-  | h = H ; f = file { PHeader (fst h, snd h) :: f }
-  | ol = OL ; f = file { OrderedList (fst ol, [ snd ol ]) :: f }
-  | s = UL ; f = file { UnorderedList [s] :: f }
-  | s = P ; f = file { PParagraph s :: f }
-  | r = REF ; f = file { let (r, u, t) = r in PReference (r, u, t) :: f }
-  | NL+ ; f = file { f }
+  | NL* ; f = no_nl_file { f }
+  ;
+
+no_nl_file:
+  | q = quote ; f = no_nl_file { Markdown_ast.BlockQuote q :: f }
+  | c = CODE ; f = file { Markdown_ast.PCode (fst c, snd c) :: f }
+  | h = H ; f = file { Markdown_ast.PHeader (fst h, snd h) :: f }
+  | ol = OL ; f = file { Markdown_ast.OrderedList (fst ol, [ snd ol ]) :: f }
+  | s = UL ; f = file { Markdown_ast.UnorderedList [s] :: f }
+  | s = P ; f = file { Markdown_ast.PParagraph s :: f }
+  | r = REF ; f = file { let (r, u, t) = r in Markdown_ast.PReference (r, u, t) :: f }
   | EOF { [] }
   ;
 
 quote:
-  | s = QUOTE ; NL+ ; q = quote { s ^ q }
+  | s = QUOTE ; NL ; q = quote { s ^ "\n" ^ q }
   | s = QUOTE { s }
   ;

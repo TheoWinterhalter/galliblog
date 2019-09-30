@@ -55,6 +55,7 @@ let () =
   (* let content = Markdown.to_html (Markdown.from_string (Article.content entry)) in *)
   let content =
     let lexbuf = Lexing.from_string (Article.content entry) in
+    lexbuf.lex_curr_p <- { lexbuf.lex_curr_p with pos_fname = "test" } ;
     try Md_sep_parser.file Md_sep_lexer.token lexbuf
     with
     | Md_sep_lexer.SyntaxError msg ->
