@@ -27,6 +27,6 @@ no_nl_file:
   ;
 
 quote:
-  | s = QUOTE ; NL ; q = quote { s ^ "\n" ^ q }
+  | s = QUOTE ; l = NL+ ; q = quote { s ^ (String.make (List.length l) '\n') ^ q }
   | s = QUOTE { s }
   ;
