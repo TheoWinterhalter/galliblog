@@ -6,7 +6,7 @@
 
   let rec nnl n lexbuf =
     if n < 1 then ()
-    else nl lexbuf ; nnl (n - 1) lexbuf
+    else (nl lexbuf ; nnl (n - 1) lexbuf)
 
   exception SyntaxError of string
 }
@@ -32,13 +32,13 @@ rule token = parse
   | lws "# " [^ '\n']+ as s newline { nl lexbuf ; H (H1, s) }
   | lws as ws ['0'-'9']+ as i ". "
     { OL (int_of_string i, begin_ol ws (Buffer.create 13) lexbuf) }
-  | lws as ws ['-' '*'] ' ' { UL (begin_ul (Buffer.create 13) lexbuf) }
+  | lws as ws ['-' '*'] ' ' { UL (begin_ul ws (Buffer.create 13) lexbuf) }
   | lws '[' str as r "]: " str as uri '"' str as s '"' newline
     { nl lexbuf ; REF (r, uri, Some s) }
   | lws '[' str as r "]: " str as uri newline
     { nl lexbuf ; REF (r, uri, None) }
   | [^ '\n']+ as s
-    { let buf = Buffer.create 13 in Buffer.add_string buf s ; P (paragraph buf) }
+    { let buf = Buffer.create 13 in Buffer.add_string buf s ; P (paragraph buf lexbuf) }
   | _ { assert false }
 
 and begin_codeblock lang = parse
