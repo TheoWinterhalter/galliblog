@@ -12,7 +12,7 @@ html {
 body {
   font-family: "Open Sans", sans-serif;
   /*background-color: rgb(241, 237, 237);*/
-  background-color: rgb(249, 247, 247);
+  background-color: rgb(252, 252, 252);
 }
 
 a {
@@ -32,6 +32,8 @@ a.href {
 
 article {
   padding: 0.5em;
+  margin: auto;
+  max-width: 60em;
 }
 
 article header h1 {
