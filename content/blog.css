@@ -52,3 +52,7 @@ article header p {
   margin: 0;
   font-size: 0.8em;
 }
+
+article header p span.author {
+  color: black;
+}

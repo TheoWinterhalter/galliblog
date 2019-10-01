@@ -12,8 +12,17 @@ let copy src dest =
   (* if not (Sys.file_exists dest) then *)
   Unix.system command |> ignore
 
-let authors_text l =
-  "By " ^ String.concat " and " l ^ "."
+let rec list_cat_sep sep l =
+  match l with
+  | [] -> []
+  | [ e ] -> [ e ]
+  | e :: l -> e :: sep :: list_cat_sep sep l
+
+let authors_html l =
+  l
+  |> List.map (fun a -> span [ classes [ "author" ] ] [ text a ])
+  |> list_cat_sep (text " and ")
+  |> fun l -> text "By " :: l @ [ text "." ]
 
 let month = function
   | 1 -> "January"
@@ -54,7 +63,7 @@ let () =
         article [] (
           header [] [
             h1 [] [ text (Article.title entry) ] ;
-            p [] [ text (authors_text (Article.authors entry))] ;
+            p [] (authors_html (Article.authors entry)) ;
             p [] [ text (date_text (Article.date entry))]
           ] ::
           (Article.content entry)
