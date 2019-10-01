@@ -9,6 +9,20 @@ This is very much work in progress as of yet, but thanks to the power of
 
 [omd]: https://github.com/ocaml/omd
 
+## Testing some code
+
+```coq
+Lemma foo : forall n : nat, n = n.
+Proof.
+  intro n. reflexivity.
+Qed.
+```
+
+```ocaml
+let rec foo n =
+  if n < 1 then 0 else foo (n - 1)
+```
+
 ## What's next
 
 - Syntax highlighting
