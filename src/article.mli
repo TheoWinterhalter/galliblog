@@ -23,3 +23,6 @@ val default_language : t -> string option
 
 (** Content of an article *)
 val content : t -> Html.t list
+
+(** Html page *)
+val page : t -> Html.t

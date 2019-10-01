@@ -1,5 +1,3 @@
-open Attribute
-open Html
 open Util
 
 (* mkdir if does not exists *)
@@ -12,64 +10,11 @@ let copy src dest =
   (* if not (Sys.file_exists dest) then *)
   Unix.system command |> ignore
 
-let rec list_cat_sep sep l =
-  match l with
-  | [] -> []
-  | [ e ] -> [ e ]
-  | e :: l -> e :: sep :: list_cat_sep sep l
-
-let authors_html l =
-  l
-  |> List.map (fun a -> span [ classes [ "author" ] ] [ text a ])
-  |> list_cat_sep (text " and ")
-  |> fun l -> text "By " :: l @ [ text "." ]
-
-let month = function
-  | 1 -> "January"
-  | 2 -> "February"
-  | 3 -> "March"
-  | 4 -> "April"
-  | 5 -> "May"
-  | 6 -> "June"
-  | 7 -> "July"
-  | 8 -> "August"
-  | 9 -> "September"
-  | 10 -> "October"
-  | 11 -> "November"
-  | 12 -> "December"
-  | _ -> "???"
-
-let date_text (d,m,y) =
-  Printf.sprintf "On %d %s %d." d (month m) y
-
 let () =
   fmkdir "website" ;
   copy "content/blog.css" "website/blog.css" ;
   let entry = Article.from_file "content/test.md" in
   let output = open_out "website/index.html" in
-  let page =
-    html [] [
-      head [] [
-        title [] [ text (Article.title entry ^ " – Galliblog") ] ;
-        meta [ charset "utf-8" ] ;
-        link [
-          href "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" ;
-          rel "stylesheet" ;
-          typ "text/css"
-        ] ;
-        link [ rel "stylesheet" ; href ("blog.css") ] ;
-      ] ;
-      body [] [
-        article [] (
-          header [] [
-            h1 [] [ text (Article.title entry) ] ;
-            p [] (authors_html (Article.authors entry)) ;
-            p [] [ text (date_text (Article.date entry))]
-          ] ::
-          (Article.content entry)
-        )
-      ]
-    ]
-  in
+  let page = Article.page entry in
   Printf.fprintf output "%s" (Html.document_to_string page) ;
   close_out output
