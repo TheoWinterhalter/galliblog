@@ -1,10 +1,10 @@
-(ocamllex article_lexer markdown_lexer md_sep_lexer)
+(ocamllex article_lexer)
 
 (menhir
-  (modules article_parser markdown_parser md_sep_parser))
+  (modules article_parser))
 
 (executable
   (name galliblog)
   (public_name galliblog)
-  (modules_without_implementation article_ast markdown_ast)
-  (libraries unix str))
+  (modules_without_implementation article_ast)
+  (libraries unix str omd))
