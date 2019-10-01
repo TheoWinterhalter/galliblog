@@ -13,7 +13,7 @@ let copy src dest =
 let () =
   fmkdir "website" ;
   copy "content/blog.css" "website/blog.css" ;
-  let entry = Article.from_file "content/test.md" in
+  let entry = Article.from_file "content/articles/test.md" in
   let output = open_out "website/index.html" in
   let page = Article.page entry in
   Printf.fprintf output "%s" (Html.document_to_string page) ;
