@@ -15,3 +15,4 @@ This is very much work in progress as of yet, but thanks to the power of
 - Making the whole blog engine
 - `jscoq`!
 - Some css
+- Handle default language for inline and such

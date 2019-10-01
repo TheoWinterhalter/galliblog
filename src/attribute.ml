@@ -21,6 +21,10 @@ let list_to_string l =
 let mk name =
   fun value -> Content { name ; value }
 
+let attr = mk
+
+let battr a = Boolean a
+
 let classes cl =
   mk "class" (String.concat " " cl)
 

@@ -57,6 +57,8 @@ let mkvoid name : void_tag =
   fun attributes ->
     Tag { name ; attributes ; children = None }
 
+let custom = mk
+
 let html = mk "html"
 
 let head = mk "head"
@@ -82,6 +84,7 @@ let main = mk "main"
 let nav = mk "nav"
 let section = mk "section"
 
+let blockquote = mk "blockquote"
 let div = mk "div"
 let figure = mk "figure"
 let hr = mkvoid "hr"
@@ -89,6 +92,7 @@ let li = mk "li"
 let p = mk "p"
 let pre = mk "pre"
 let ul = mk "ul"
+let ol = mk "ol"
 
 let a = mk "a"
 let br = mkvoid "br"

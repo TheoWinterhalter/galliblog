@@ -12,6 +12,12 @@ val to_string : t -> string
 (** Utility to render an attribute list in a format suitable for HTML *)
 val list_to_string : t list -> string
 
+(** Custom attribute *)
+val attr : string -> string -> t
+
+(** Custom boolean attribute *)
+val battr : string -> t
+
 (** Class attribute, takes a list of classes as argument *)
 val classes : string list -> t
 

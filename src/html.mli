@@ -27,6 +27,9 @@ type void_tag = Attribute.t list -> t
 (** Text *)
 val text : string -> t
 
+(** Custom tag *)
+val custom : string -> tag
+
 (*** Main root *)
 
 (** Top-level element of an HTML document *)
@@ -100,6 +103,9 @@ val section : tag
 
 (*** Text content *)
 
+(** Quotation *)
+val blockquote : tag
+
 (** Generic container *)
 val div : tag
 
@@ -120,6 +126,9 @@ val pre : tag
 
 (** Unordered list *)
 val ul : tag
+
+(** Ordered list *)
+val ol : tag
 
 (*** Inline text *)
 
