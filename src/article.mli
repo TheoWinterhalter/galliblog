@@ -18,5 +18,5 @@ val authors : t -> string list
 (** Publishing date of an article, day/month/year *)
 val date : t -> int * int * int
 
-(** Content of an article (TODO HTML format)) *)
-val content : t -> string
+(** Content of an article *)
+val content : t -> Html.t list

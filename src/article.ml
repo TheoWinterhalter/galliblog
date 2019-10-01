@@ -5,14 +5,14 @@ type part = {
   title : string option ;
   authors : string list option ;
   date : (int * int * int) option ;
-  content : string
+  content : Html.t list
 }
 
 type t = {
   _title : string ;
   _authors : string list ;
   _date : int * int * int ;
-  _content : string
+  _content : Html.t list
 }
 
 exception Error of string
@@ -84,11 +84,13 @@ let from_file f =
    *)
   let (ast, content) = parse_with_errors lexbuf in
   close_in input ;
+  let content = Omd.of_string content in
+  let content = Markdown.md_to_html content in
   let default = {
     title = None ;
     authors = None ;
     date = None ;
-    content (* TODO Parse *)
+    content
   } in
   from_ast default ast
 

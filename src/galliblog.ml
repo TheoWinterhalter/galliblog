@@ -38,9 +38,6 @@ let () =
   copy "content/blog.css" "website/blog.css" ;
   let entry = Article.from_file "content/test.md" in
   let output = open_out "website/index.html" in
-  let content = Omd.of_string (Article.content entry) in
-  let content = Omd.to_html content in
-  let content = [ text content ] in
   let page =
     html [] [
       head [] [
@@ -60,7 +57,7 @@ let () =
             p [] [ text (authors_text (Article.authors entry))] ;
             p [] [ text (date_text (Article.date entry))]
           ] ::
-          content
+          (Article.content entry)
         )
       ]
     ]
