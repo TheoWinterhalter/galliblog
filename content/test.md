@@ -8,12 +8,12 @@ markdown parser, and bits of parsing that I did myself.
 This is very much work in progress as of yet, but thanks to the power of
 [omd] you can already write pretty cool articles, simply.
 
-[omd]: https://github.com/ocaml/omd
-
 ## Testing some code
 
 Inline code like `let x := 1 in x` doesn't have any language affected to it,
 unless the `default language` is set in the header.
+(Note that it will set all inline codes and all block codes where the language
+is not specified.)
 
 ```coq
 Lemma foo : forall n : nat, n = n.
@@ -27,9 +27,23 @@ let rec foo n =
   if n < 1 then 0 else foo (n - 1)
 ```
 
+## Jscoq
+
+To use [jscoq], you need to specify which version you want to load in the
+header.
+```
+jscoq: v0.9.3
+```
+For the moment `v0.9.3` is the only option (not even an option at this point).
+
 ## What's next
 
-- Syntax highlighting
-- Making the whole blog engine
+- Syntax highlighting.
+- Making the whole blog engine.
 - `jscoq`!
-- Some css
+- Some css.
+- Table of contents (since [omd] seem to provide it).
+- Collect references to put at the end?
+
+[jscoq]: https://github.com/ejgallego/jscoq
+[omd]: https://github.com/ocaml/omd
