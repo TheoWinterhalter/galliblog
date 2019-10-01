@@ -11,7 +11,7 @@ This is very much work in progress as of yet, but thanks to the power of
 ## Testing some code
 
 Inline code like `let x := 1 in x` doesn't have any language affected to it,
-unless the `default language` is set in the header.
+_unless_ the `default language` is set in the header.
 (Note that it will set all inline codes and all block codes where the language
 is not specified.)
 

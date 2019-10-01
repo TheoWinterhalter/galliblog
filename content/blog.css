@@ -11,7 +11,6 @@ html {
 
 body {
   font-family: "Open Sans", sans-serif;
-  /*background-color: rgb(241, 237, 237);*/
   background-color: rgb(252, 252, 252);
 }
 
@@ -26,6 +25,14 @@ a:hover {
 
 a.href {
   cursor: pointer;
+}
+
+.emph {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /*** BLOG POSTS ***/
