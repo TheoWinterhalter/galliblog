@@ -13,20 +13,17 @@ let bold l =
   span [ classes [ "bold" ] ] l
 
 let inlinecode lang code =
-  (* TODO Deal with lang empty and default lang
-     For default lang maybe just use set_default_lang
-   *)
-  Html.code [ Attribute.classes [ lang ] ] [ Html.text code ]
+  if lang <> ""
+  then Html.code [ Attribute.classes [ lang ] ] [ Html.text code ]
+  else Html.code [] [ Html.text code ]
 
 let codeblock lang c =
-  (* TODO Deal with lang empty and default lang
-     For default lang maybe just use set_default_lang
-   *)
   (* TODO Deal with jscoq *)
   let open Html in
   let open Attribute in
-  pre [ classes [ lang ] ] [
-    code [ classes [ lang ] ] [
+  let attr = if lang <> "" then [ classes [ lang ] ] else [] in
+  pre attr [
+    code attr [
       text c
     ]
   ]

@@ -1,7 +1,6 @@
 title: "Test of a first article"
 authors: "Théo Winterhalter", "no one else"
 date: 29/09/2019
-default language: coq
 ----------------------------------------
 Welcome on Galliblog the Gallinette blog. I use the amazing [omd]
 markdown parser, and bits of parsing that I did myself.
@@ -14,6 +13,10 @@ Inline code like `let x := 1 in x` doesn't have any language affected to it,
 _unless_ the `default language` is set in the header.
 (Note that it will set all inline codes and all block codes where the language
 is not specified.)
+
+```
+default language: coq
+```
 
 ```coq
 Lemma foo : forall n : nat, n = n.
