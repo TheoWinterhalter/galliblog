@@ -7,9 +7,11 @@
 
   let keywords_table =
     Hashtbl.create 19
-    |> h_add "title"   TITLE
-    |> h_add "authors" AUTHORS
-    |> h_add "date"    DATE
+    |> h_add "title"    TITLE
+    |> h_add "authors"  AUTHORS
+    |> h_add "date"     DATE
+    |> h_add "default"  DEFAULT
+    |> h_add "language" LANGUAGE
 
 }
 
@@ -30,10 +32,10 @@ rule token = parse
   | ',' { COMMA }
   | "--" '-'+ newline { Lexing.new_line lexbuf ; CONTENT (read_content (Buffer.create 100) lexbuf) }
   | ['0'-'9']+ as i { INT (int_of_string i) }
-  | [^ '\\' '\n' ':' '(' ' ' '\009' '\012' '"' '/'] + as id
+  | [^ '\\' '\n' ':' '(' ' ' '\009' '\012' '"' '/' ','] + as id
     {
       try Hashtbl.find keywords_table id
-      with Not_found -> raise (SyntaxError "Unknown keyword")
+      with Not_found -> STRING id
     }
   | _  { raise (SyntaxError ("Syntax Error, unknown char.")) }
 

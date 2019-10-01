@@ -5,14 +5,19 @@ type part = {
   title : string option ;
   authors : string list option ;
   date : (int * int * int) option ;
-  content : Html.t list
+  default_language : string option
 }
 
-type t = {
+type header = {
   _title : string ;
   _authors : string list ;
   _date : int * int * int ;
-  _content : Html.t list
+  _default_language : string option
+}
+
+type t = {
+  header : header ;
+  content : Html.t list
 }
 
 exception Error of string
@@ -45,9 +50,9 @@ let check c =
   | { title = Some _title ;
       authors = Some _authors ;
       date = Some _date ;
-      content = _content
+      default_language = _default_language
     } ->
-    { _title ; _authors ; _date ; _content }
+    { _title ; _authors ; _date ; _default_language }
   | _ -> assert false
   end
 
@@ -66,11 +71,17 @@ let with_date c date =
   | None -> { c with date = Some date }
   | Some _ -> error "Cannot set 'date' twice"
 
+let with_default_language c l =
+  match c.default_language with
+  | None -> { c with default_language = Some l }
+  | Some _ -> error "Cannot set 'default language' twice"
+
 let rec from_ast c ast =
   match ast with
   | Title title :: ast -> from_ast (with_title c title) ast
   | Authors l :: ast -> from_ast (with_authors c l) ast
   | Date (d,m,y) :: ast -> from_ast (with_date c (d,m,y)) ast
+  | Default_language s :: ast -> from_ast (with_default_language c s) ast
   | [] -> check c
 
 let from_file f =
@@ -84,20 +95,30 @@ let from_file f =
    *)
   let (ast, content) = parse_with_errors lexbuf in
   close_in input ;
-  let content = Omd.of_string content in
-  let content = Markdown.md_to_html content in
   let default = {
     title = None ;
     authors = None ;
     date = None ;
-    content
+    default_language = None
   } in
-  from_ast default ast
+  let header = from_ast default ast in
+  let content = Omd.of_string content in
+  (* If default language is set then we apply it *)
+  let content =
+    begin match header._default_language with
+    | Some lang -> Omd.set_default_lang lang content
+    | None -> content
+    end
+  in
+  let content = Markdown.md_to_html content in
+  { header ; content }
 
-let title a = a._title
+let title a = a.header._title
 
-let authors a = a._authors
+let authors a = a.header._authors
 
-let date a = a._date
+let date a = a.header._date
 
-let content a = a._content
+let default_language a = a.header._default_language
+
+let content a = a.content

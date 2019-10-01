@@ -18,5 +18,8 @@ val authors : t -> string list
 (** Publishing date of an article, day/month/year *)
 val date : t -> int * int * int
 
+(** Default language *)
+val default_language : t -> string option
+
 (** Content of an article *)
 val content : t -> Html.t list
