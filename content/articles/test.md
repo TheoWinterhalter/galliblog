@@ -1,11 +1,11 @@
-title: "Test of a first article"
-authors: "Théo Winterhalter", "no one else"
+title: "Welcome to Galliblog!"
+authors: "Théo Winterhalter", "Galliblog"
 date: 29/09/2019
 updated: 02/10/2019
 tags: "omd", "markdown", "blog"
 summary: "This article is basically a test of the different features available for the blog."
 ----------------------------------------
-Welcome on Galliblog the Gallinette blog. I use the amazing [omd]
+Welcome to Galliblog, the Gallinette blog. I use the amazing [omd]
 markdown parser, and bits of parsing that I did myself.
 This is very much work in progress as of yet, but thanks to the power of
 [omd] you can already write pretty cool articles, simply.
@@ -39,6 +39,8 @@ Qed.
 let rec foo n =
   if n < 1 then 0 else foo (n - 1)
 ```
+
+There is no syntax highlighting for the moment so it's a bit useless.
 
 ## What's next
 
