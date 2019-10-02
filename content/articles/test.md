@@ -52,6 +52,7 @@ For the moment `v0.9.3` is the only option (not even an option at this point).
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
 - Tags
+- Summary
 - Search (when it becomes necessary)
 - Generating the whole galinette website
 - Factorise in `Html_util`.

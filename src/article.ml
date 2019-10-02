@@ -138,14 +138,6 @@ let updated a = a.header._updated
 
 let content a = a.content
 
-let authors_html l =
-  let open Attribute in
-  let open Html in
-  l
-  |> List.map (fun a -> span [ classes [ "author" ] ] [ text a ])
-  |> list_cat_sep (text " and ")
-  |> fun l -> text "By " :: l @ [ text "." ]
-
 let date_text (d,m,y) =
   Printf.sprintf "On %d %s %d." d (month m) y
 
@@ -160,6 +152,7 @@ let page article =
   let content = content article in
   let open Attribute in
   let open Html in
+  let open Html_util in
   html [] [
     head [] [
       title [] [ text (titl ^ " – Galliblog") ] ;

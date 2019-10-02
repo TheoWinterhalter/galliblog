@@ -1,38 +1,5 @@
 open Util
 
-(* mkdir if does not exists *)
-let fmkdir dir =
-  if not (Sys.file_exists dir) then
-    Unix.mkdir dir 0o777
-
-let copy src dest =
-  let command = Printf.sprintf "cp %s %s" src dest in
-  (* if not (Sys.file_exists dest) then *)
-  Unix.system command |> ignore
-
-let rec list_last_is x l =
-  begin match l with
-  | [] -> false
-  | [ y ] -> x = y
-  | e :: l -> list_last_is x l
-  end
-
-let ismd file =
-  String.split_on_char '.' file
-  |> list_last_is "md"
-
-let rec list_beginning l =
-  begin match l with
-  | [] -> []
-  | [ x ] -> []
-  | e :: l -> e :: list_beginning l
-  end
-
-let fname file =
-  String.split_on_char '.' file
-  |> list_beginning
-  |> String.concat "."
-
 let make_article file =
   let entry = Article.from_file ("content/articles/" ^ file) in
   let output = open_out ("website/article/" ^ (fname file) ^ ".html") in
@@ -40,18 +7,6 @@ let make_article file =
   Printf.fprintf output "%s" (Html.document_to_string page) ;
   close_out output ;
   entry
-
-let compare_dates (d,m,y) (d',m',y') =
-  compare (y,m,d) (y',m',d')
-
-(* TODO Remove dupplication by having some Html utils *)
-let authors_html l =
-  let open Attribute in
-  let open Html in
-  l
-  |> List.map (fun a -> span [ classes [ "author" ] ] [ text a ])
-  |> list_cat_sep (text " and ")
-  |> fun l -> text "By " :: l @ [ text "." ]
 
 let date_text (d,m,y) updated =
   begin match updated with
@@ -74,6 +29,7 @@ let () =
   (* TODO Later, do several pages. *)
   let open Attribute in
   let open Html in
+  let open Html_util in
   let html_entry (na, f) =
     li [] [
       a [ href ("article/" ^ na ^ ".html") ] [
