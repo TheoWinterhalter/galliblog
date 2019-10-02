@@ -2,18 +2,22 @@ open Util
 open Lexing
 open Article_ast
 
+type date = int * int * int
+
 type part = {
   title : string option ;
   authors : string list option ;
-  date : (int * int * int) option ;
-  default_language : string option
+  date : date option ;
+  default_language : string option ;
+  updated : date option
 }
 
 type header = {
   _title : string ;
   _authors : string list ;
   _date : int * int * int ;
-  _default_language : string option
+  _default_language : string option ;
+  _updated : date option
 }
 
 type t = {
@@ -51,9 +55,10 @@ let check c =
   | { title = Some _title ;
       authors = Some _authors ;
       date = Some _date ;
-      default_language = _default_language
+      default_language = _default_language ;
+      updated = _updated
     } ->
-    { _title ; _authors ; _date ; _default_language }
+    { _title ; _authors ; _date ; _default_language ; _updated }
   | _ -> assert false
   end
 
@@ -77,12 +82,18 @@ let with_default_language c l =
   | None -> { c with default_language = Some l }
   | Some _ -> error "Cannot set 'default language' twice"
 
+let with_updated c d =
+  match c.updated with
+  | None -> { c with updated = Some d }
+  | Some _ -> error "Cannot set 'updated' twice"
+
 let rec from_ast c ast =
   match ast with
   | Title title :: ast -> from_ast (with_title c title) ast
   | Authors l :: ast -> from_ast (with_authors c l) ast
   | Date (d,m,y) :: ast -> from_ast (with_date c (d,m,y)) ast
   | Default_language s :: ast -> from_ast (with_default_language c s) ast
+  | Updated (d,m,y) :: ast -> from_ast (with_updated c (d,m,y)) ast
   | [] -> check c
 
 let from_file f =
@@ -100,7 +111,8 @@ let from_file f =
     title = None ;
     authors = None ;
     date = None ;
-    default_language = None
+    default_language = None ;
+    updated = None
   } in
   let header = from_ast default ast in
   let content = Omd.of_string content in
@@ -121,6 +133,8 @@ let authors a = a.header._authors
 let date a = a.header._date
 
 let default_language a = a.header._default_language
+
+let updated a = a.header._updated
 
 let content a = a.content
 
@@ -150,10 +164,14 @@ let month = function
 let date_text (d,m,y) =
   Printf.sprintf "On %d %s %d." d (month m) y
 
+let updated_text (d,m,y) =
+  Printf.sprintf "Last updated on %d %s %d." d (month m) y
+
 let page article =
   let titl = title article in
   let authors = authors article in
   let date = date article in
+  let updated = updated article in
   let content = content article in
   let open Attribute in
   let open Html in
@@ -170,11 +188,15 @@ let page article =
     ] ;
     body [] [
       article [] (
-        header [] [
-          h1 [] [ text titl ] ;
-          p [] (authors_html authors) ;
-          p [] [ text (date_text date)]
-        ] ::
+        header [] (
+          h1 [] [ text titl ] ::
+          p [] (authors_html authors) ::
+          p [] [ text (date_text date) ] ::
+          begin match updated with
+          | Some d -> [ p [] [ text (updated_text d) ] ]
+          | None -> []
+          end
+        ) ::
         content
       )
     ]

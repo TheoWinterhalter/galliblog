@@ -12,6 +12,7 @@
     |> h_add "date"     DATE
     |> h_add "default"  DEFAULT
     |> h_add "language" LANGUAGE
+    |> h_add "updated"  UPDATED
 
 }
 

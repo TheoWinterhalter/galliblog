@@ -21,6 +21,9 @@ val date : t -> int * int * int
 (** Default language *)
 val default_language : t -> string option
 
+(** Last update date *)
+val updated : t -> (int * int * int) option
+
 (** Content of an article *)
 val content : t -> Html.t list
 
