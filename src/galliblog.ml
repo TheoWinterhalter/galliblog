@@ -3,7 +3,7 @@ open OptionMonad
 
 let make_article file =
   let entry = Article.from_file ("content/articles/" ^ file) in
-  let output = open_out ("website/article/" ^ (fname file) ^ ".html") in
+  let output = open_out ("website/blog/article/" ^ (fname file) ^ ".html") in
   let page = Article.page entry in
   Printf.fprintf output "%s" (Html.document_to_string page) ;
   close_out output ;
@@ -19,8 +19,23 @@ let date_text (d,m,y) updated =
 
 let () =
   fmkdir "website" ;
-  fmkdir "website/article" ;
-  copy "content/blog.css" "website/blog.css" ;
+  fmkdir "website/blog" ;
+  fmkdir "website/blog/article" ;
+  copy "content/blog.css" "website/blog/blog.css" ;
+  copy "content/normalize.css" "website/normalize.css" ;
+  copy "content/style.css" "website/style.css" ;
+  cpdir "content/img" "website/img" ;
+  (* Dealing with the website *)
+  let output = open_out ("website/index.html") in
+  Printf.fprintf output "%s" (Html.document_to_string Website.index) ;
+  close_out output ;
+  let output = open_out ("website/members.html") in
+  Printf.fprintf output "%s" (Html.document_to_string Website.members) ;
+  close_out output ;
+  let output = open_out ("website/papers.html") in
+  Printf.fprintf output "%s" (Html.document_to_string Website.papers) ;
+  close_out output ;
+  (* Dealing with the blog *)
   let articles =
     Sys.readdir "content/articles"
     |> Array.to_list
@@ -70,6 +85,6 @@ let () =
       ]
     ]
   in
-  let output = open_out ("website/index.html") in
+  let output = open_out ("website/blog/index.html") in
   Printf.fprintf output "%s" (Html.document_to_string page) ;
   close_out output

@@ -56,6 +56,11 @@ let copy src dest =
   (* if not (Sys.file_exists dest) then *)
   Unix.system command |> ignore
 
+let cpdir src dest =
+  let command = Printf.sprintf "cp -r %s %s" src dest in
+  if not (Sys.file_exists dest) then
+    Unix.system command |> ignore
+
 let rec list_last_is x l =
   begin match l with
   | [] -> false
