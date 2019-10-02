@@ -38,25 +38,14 @@ let rec foo n =
   if n < 1 then 0 else foo (n - 1)
 ```
 
-## Jscoq
-
-To use [jscoq], you need to specify which version you want to load in the
-header.
-```
-jscoq: v0.9.3
-```
-For the moment `v0.9.3` is the only option (not even an option at this point).
-
 ## What's next
 
 - Syntax highlighting.
 - `jscoq`!
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
-- Summary
 - Search (when it becomes necessary)
 - Generating the whole galinette website
-- Factorise in `Html_util`.
 
 [jscoq]: https://github.com/ejgallego/jscoq
 [omd]: https://github.com/ocaml/omd
