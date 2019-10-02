@@ -10,6 +10,8 @@ markdown parser, and bits of parsing that I did myself.
 This is very much work in progress as of yet, but thanks to the power of
 [omd] you can already write pretty cool articles, simply.
 
+> This is a quote.
+
 If you want to write markdown, this [cheatsheet] can be useful.
 Be careful that [omd] doesn't implement github flavoured markdown though.
 For instance, there is no strikethrough. But if there is a huge demand I can
