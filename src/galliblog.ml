@@ -24,6 +24,8 @@ let () =
   copy "content/blog.css" "website/blog/blog.css" ;
   copy "content/normalize.css" "website/normalize.css" ;
   copy "content/style.css" "website/style.css" ;
+  copy "content/monokai-sublime.css" "website/blog/monokai-sublime.css" ;
+  copy "content/highlight.pack.js" "website/blog/highlight.pack.js" ;
   cpdir "content/img" "website/img" ;
   (* Dealing with the website *)
   let output = open_out ("website/index.html") in

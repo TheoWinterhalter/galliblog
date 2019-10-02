@@ -24,7 +24,7 @@ _unless_ the `default language` is set in the header.
 (Note that it will set all inline codes and all block codes where the language
 is not specified.)
 
-```
+```yaml
 default language: coq
 ```
 
@@ -40,11 +40,10 @@ let rec foo n =
   if n < 1 then 0 else foo (n - 1)
 ```
 
-There is no syntax highlighting for the moment so it's a bit useless.
+Syntax highlighting is done using [highlight.js]!
 
 ## What's next
 
-- Syntax highlighting.
 - `jscoq`!
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
@@ -54,3 +53,4 @@ There is no syntax highlighting for the moment so it's a bit useless.
 [jscoq]: https://github.com/ejgallego/jscoq
 [omd]: https://github.com/ocaml/omd
 [cheatsheet]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+[highlight.js]: https://highlightjs.org

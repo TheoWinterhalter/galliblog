@@ -198,6 +198,9 @@ let page article =
         typ "text/css"
       ] ;
       link [ rel "stylesheet" ; href ("../blog.css") ] ;
+      link [ rel "stylesheet" ; href ("../monokai-sublime.css") ] ;
+      script [ src "../highlight.pack.js" ] [] ;
+      script [] [ text "hljs.initHighlightingOnLoad();" ]
     ] ;
     body [] [
       blog_header ~index:false ;
