@@ -37,8 +37,8 @@ let () =
         h4 [] [ text (Article.title f) ]
       ] ::
       (Article.summary f >>>= fun t -> p [ classes [ "summary" ] ] [ text t ]) -::
-      (p [] (authors_html (Article.authors f)) ::
-      p [] [ text (date_text (Article.date f) (Article.updated f))] ::
+      (p [ classes [ "meta" ] ] (authors_html (Article.authors f)) ::
+      p [ classes [ "meta" ] ] [ text (date_text (Article.date f) (Article.updated f))] ::
       (Article.tags f >>>= tags_html) -::
       [])
     )

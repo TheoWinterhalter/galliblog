@@ -204,9 +204,9 @@ let page article =
       article [] (
         header [] (
           h1 [] [ text titl ] ::
-          p [] (authors_html authors) ::
-          p [] [ text (date_text date) ] ::
-          (updated >>>= fun d -> p [] [ text (updated_text d) ]) -::
+          p [ classes [ "meta" ] ] (authors_html authors) ::
+          p [ classes [ "meta" ] ] [ text (date_text date) ] ::
+          (updated >>>= fun d -> p [ classes [ "meta" ] ] [ text (updated_text d) ]) -::
           (tags -::
           [])
         ) ::
