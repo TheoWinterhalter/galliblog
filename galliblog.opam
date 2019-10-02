@@ -11,5 +11,5 @@ license: ""
 homepage: ""
 bug-reports: "https://github.com/TheoWinterhalter/galliblog/issues"
 dev-repo: "https://github.com/TheoWinterhalter/galliblog"
-depends: [ "ocaml" "dune" ]
-build: ["dune" "build" "-p" docaml]
+depends: [ "ocaml" "dune" "omd" ]
+build: ["make"]
