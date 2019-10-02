@@ -26,6 +26,9 @@ val default_language : t -> string option
 (** Last update date *)
 val updated : t -> date option
 
+(** List of tags *)
+val tags : t -> string list option
+
 (** Content of an article *)
 val content : t -> Html.t list
 

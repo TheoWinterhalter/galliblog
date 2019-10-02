@@ -1,4 +1,5 @@
 open Util
+open OptionMonad
 
 let make_article file =
   let entry = Article.from_file ("content/articles/" ^ file) in
@@ -31,13 +32,15 @@ let () =
   let open Html in
   let open Html_util in
   let html_entry (na, f) =
-    li [] [
+    li [] (
       a [ href ("article/" ^ na ^ ".html") ] [
         h4 [] [ text (Article.title f) ]
-      ] ;
-      p [] (authors_html (Article.authors f)) ;
-      p [] [ text (date_text (Article.date f) (Article.updated f))]
-    ]
+      ] ::
+      p [] (authors_html (Article.authors f)) ::
+      p [] [ text (date_text (Article.date f) (Article.updated f))] ::
+      (Article.tags f >>>= tags_html) -::
+      []
+    )
   in
   let articles =
     articles
@@ -58,16 +61,7 @@ let () =
         link [ rel "stylesheet" ; href ("blog.css") ] ;
       ] ;
       body [] [
-        header [ classes [ "main" ] ] [
-          h1 [] [ text "Galliblog" ] ;
-          h2 [] [
-            text "The " ;
-            a [ href "../../index.html" ] [
-              text "Gallinette"
-            ] ;
-            text " blog"
-          ]
-        ] ;
+        blog_header ~index:true ;
         main [] [
           h3 [] [ text "List of articles" ] ;
           ul [ classes [ "articles" ] ] articles

@@ -1,6 +1,6 @@
 %token EOF
 %token COLON SLASH COMMA
-%token TITLE AUTHORS DATE DEFAULT LANGUAGE UPDATED
+%token TITLE AUTHORS DATE DEFAULT LANGUAGE UPDATED TAGS
 %token <string> QSTRING
 %token <string> STRING
 %token <int> INT
@@ -31,6 +31,8 @@ value_list:
     { Article_ast.Default_language s :: vl }
   | vl = value_list ; UPDATED ; COLON ; d = INT ; SLASH ; m = INT ; SLASH ; y = INT
     { Article_ast.Updated (d, m, y) :: vl }
+  | vl = value_list ; TAGS ; COLON ; tags = ne_qstring_list
+    { Article_ast.Tags tags :: vl }
   ;
 
 ne_qstring_list:

@@ -14,6 +14,11 @@ module OptionMonad = struct
 
 end
 
+let (-::) o l =
+  match o with
+  | Some x -> x :: l
+  | None -> l
+
 let rec list_cat_sep sep l =
   match l with
   | [] -> []

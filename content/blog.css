@@ -35,6 +35,22 @@ a.href {
   font-weight: bold;
 }
 
+ul.tags {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.tags li {
+  display: inline-block;
+  background-color: rgb(56, 154, 209);
+  color: white;
+  border-radius: 0.1em;
+  padding: 0.2em;
+  margin-right: 0.2em;
+  font-size: 0.6em;
+}
+
 /*** HEADER ***/
 
 header.main {
@@ -84,7 +100,7 @@ main ul.articles {
   padding: 0;
 }
 
-main ul.articles li {
+main ul.articles > li {
   display: block;
   background-color: rgb(255, 255, 255);
   border-radius: 0.1em;
@@ -94,11 +110,11 @@ main ul.articles li {
   transition: all 1s;
 }
 
-main ul.articles li:hover {
+main ul.articles > li:hover {
   box-shadow: 0 0.3em 0.2em rgba(52, 52, 52, 0.08);
 }
 
-ul.articles li p {
+ul.articles > li p {
   margin: 0.1em 0;
 }
 

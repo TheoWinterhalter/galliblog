@@ -9,6 +9,7 @@ type header =
 | Date of date
 | Default_language of string
 | Updated of date
+| Tags of string list
 
 (** AST *)
 type t = header list * string

@@ -9,7 +9,8 @@ type part = {
   authors : string list option ;
   date : date option ;
   default_language : string option ;
-  updated : date option
+  updated : date option ;
+  tags : string list option
 }
 
 type header = {
@@ -17,7 +18,8 @@ type header = {
   _authors : string list ;
   _date : int * int * int ;
   _default_language : string option ;
-  _updated : date option
+  _updated : date option ;
+  _tags : string list option
 }
 
 type t = {
@@ -56,9 +58,10 @@ let check c =
       authors = Some _authors ;
       date = Some _date ;
       default_language = _default_language ;
-      updated = _updated
+      updated = _updated ;
+      tags = _tags
     } ->
-    { _title ; _authors ; _date ; _default_language ; _updated }
+    { _title ; _authors ; _date ; _default_language ; _updated ; _tags }
   | _ -> assert false
   end
 
@@ -87,6 +90,11 @@ let with_updated c d =
   | None -> { c with updated = Some d }
   | Some _ -> error "Cannot set 'updated' twice"
 
+let with_tags c tags =
+  match c.tags with
+  | None -> { c with tags = Some tags }
+  | Some _ -> error "Cannot set 'tags' twice"
+
 let rec from_ast c ast =
   match ast with
   | Title title :: ast -> from_ast (with_title c title) ast
@@ -94,6 +102,7 @@ let rec from_ast c ast =
   | Date (d,m,y) :: ast -> from_ast (with_date c (d,m,y)) ast
   | Default_language s :: ast -> from_ast (with_default_language c s) ast
   | Updated (d,m,y) :: ast -> from_ast (with_updated c (d,m,y)) ast
+  | Tags tags :: ast -> from_ast (with_tags c tags) ast
   | [] -> check c
 
 let from_file f =
@@ -112,7 +121,8 @@ let from_file f =
     authors = None ;
     date = None ;
     default_language = None ;
-    updated = None
+    updated = None ;
+    tags = None
   } in
   let header = from_ast default ast in
   let content = Omd.of_string content in
@@ -136,6 +146,8 @@ let default_language a = a.header._default_language
 
 let updated a = a.header._updated
 
+let tags a = a.header._tags
+
 let content a = a.content
 
 let date_text (d,m,y) =
@@ -149,10 +161,13 @@ let page article =
   let authors = authors article in
   let date = date article in
   let updated = updated article in
+  let tags = tags article in
   let content = content article in
   let open Attribute in
   let open Html in
   let open Html_util in
+  let open OptionMonad in
+  let tags = tags >>>= tags_html in
   html [] [
     head [] [
       title [] [ text (titl ^ " – Galliblog") ] ;
@@ -165,27 +180,15 @@ let page article =
       link [ rel "stylesheet" ; href ("../blog.css") ] ;
     ] ;
     body [] [
-      header [ classes [ "main" ] ] [
-        a [ href "../index.html" ] [
-          h1 [] [ text "Galliblog" ]
-        ] ;
-        h2 [] [
-          text "The " ;
-          a [ href "../../index.html" ] [
-            text "Gallinette"
-          ] ;
-          text " blog"
-        ]
-      ] ;
+      blog_header ~index:false ;
       article [] (
         header [] (
           h1 [] [ text titl ] ::
           p [] (authors_html authors) ::
           p [] [ text (date_text date) ] ::
-          begin match updated with
-          | Some d -> [ p [] [ text (updated_text d) ] ]
-          | None -> []
-          end
+          (updated >>>= fun d -> p [] [ text (updated_text d) ]) -::
+          (tags -::
+          [])
         ) ::
         content
       )

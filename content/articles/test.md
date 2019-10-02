@@ -2,6 +2,7 @@ title: "Test of a first article"
 authors: "Théo Winterhalter", "no one else"
 date: 29/09/2019
 updated: 02/10/2019
+tags: "omd", "markdown", "blog"
 ----------------------------------------
 Welcome on Galliblog the Gallinette blog. I use the amazing [omd]
 markdown parser, and bits of parsing that I did myself.
@@ -51,7 +52,6 @@ For the moment `v0.9.3` is the only option (not even an option at this point).
 - `jscoq`!
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
-- Tags
 - Summary
 - Search (when it becomes necessary)
 - Generating the whole galinette website
