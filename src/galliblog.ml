@@ -26,7 +26,7 @@ let () =
     |> Array.to_list
     |> List.filter ismd
   in
-  (* Building the homepage *)
+  (* Building the blog homepage *)
   (* TODO Later, do several pages. *)
   let open Attribute in
   let open Html in

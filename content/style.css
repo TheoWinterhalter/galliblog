@@ -1,0 +1,207 @@
+/*** GENERAL ***/
+
+body, div, header, footer, main, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  /*background-color: rgb(241, 237, 237);*/
+  background-color: rgb(249, 247, 247);
+}
+
+a {
+  text-decoration: none;
+  color: rgb(29, 125, 203);
+}
+
+a:hover {
+  color: rgb(43, 159, 252);
+}
+
+a.href {
+  cursor: pointer;
+}
+
+label {
+  cursor: pointer;
+  margin-right: 5pt;
+}
+
+label input[type=checkbox] {
+  margin-right: 3pt;
+}
+
+/*** HEADER ***/
+
+header {
+  background: rgb(207, 74, 45); /* HEADER BACKGROUND */
+  padding-top: 70pt;
+  padding-bottom: 20pt;
+}
+
+header h1 {
+  color: rgb(244, 244, 244);
+  text-align: center;
+  font-size: 32pt;
+}
+
+header h2 {
+  color: rgb(227, 232, 238);
+  text-align: center;
+}
+
+header figure {
+  text-align: center;
+}
+
+/* This is a fail safe in case logo don't show up */
+header a {
+  color: rgb(119, 40, 23); /* LINK COLOUR */
+}
+
+header a img {
+  opacity: 0.7;
+  transition: all 1s ease-out;
+}
+
+header a:hover {
+  color: rgb(117, 73, 63);
+}
+
+header a:hover img {
+  opacity: 1;
+  transition: all 1s ease-out;
+}
+
+/** NAV **/
+
+nav {
+  text-align: center;
+  margin-top: 20pt;
+}
+
+nav a, nav a:hover {
+  display: inline-block;
+  color: rgb(119, 40, 23); /* LINK COLOUR */
+  font-size: 18pt;
+  margin-left: 10pt;
+  margin-right: 10pt;
+  padding-bottom: 7pt;
+  border-bottom: 2pt solid transparent;
+}
+
+nav a:hover {
+  border-bottom: 2pt solid rgb(119, 40, 23); /* LINK COLOUR */
+}
+
+/*** MAIN ***/
+
+main {
+  margin: auto;
+  margin-top: 20pt;
+  margin-bottom: 30pt;
+  max-width: 700pt;
+  padding: 5pt 12pt 20pt 12pt;
+
+  text-align: justify;
+  color: rgb(45, 45, 45);
+}
+
+section {
+  margin-bottom: 30pt;
+}
+
+main section h3 {
+  border-left: 5pt solid rgb(207, 74, 45); /* HEADER BACKGROUND */
+  color: rgb(207, 74, 45); /* HEADER BACKGROUND */
+  padding-left: 7pt;
+  margin-bottom: 10pt;
+}
+
+/** Portraits **/
+
+ul.portrait {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul.portrait li {
+  display: inline-block;
+  max-width: 200pt;
+  /*width: 170pt;*/
+  margin: 15pt 16pt;
+}
+
+ul.portrait img {
+  display: inline-block;
+  width: 100pt;
+  height: 100pt;
+  border-radius: 50%;
+  border: 3pt solid rgb(213, 101, 77); /* PORTRAIT BORDER */
+  margin-bottom: 5pt;
+}
+
+ul.portrait span {
+  /*display: inline-block;*/
+  display: block;
+}
+
+ul.portrait span.status {
+  color: rgb(136, 136, 136);
+}
+
+/** Articles **/
+
+ul.articles {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.articles li {
+  display: block;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2pt;
+  margin: 10pt 0;
+  padding: 5pt;
+  box-shadow: 0 2px 2px rgba(52, 52, 52, 0.03);
+  transition: all 1s;
+}
+
+ul.articles li:hover {
+  box-shadow: 0 3px 2px rgba(52, 52, 52, 0.08);
+}
+
+ul.articles li p {
+  margin: 2pt 0;
+}
+
+p.conference {
+  font-style: italic;
+  color: rgb(136, 136, 136);
+}
+
+div.files a {
+  transition: all 1s;
+  display: inline-block;
+  border-radius: 1pt;
+  border: 1px solid #d1e5f4;
+  padding: 0 3pt;
+  margin-right: 7pt;
+  background: #d9e7f2;
+  color: #f0f6fb;
+}
+
+div.files a:hover {
+  border: 1px solid #8ab7d9;
+  background: #95bcda;
+  box-shadow: 0 2px 1px rgba(52, 52, 52, 0.08);
+}

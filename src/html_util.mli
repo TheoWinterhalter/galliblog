@@ -6,5 +6,8 @@ val authors_html : string list -> Html.t list
 (** Blog header *)
 val blog_header : index:bool -> Html.t
 
-(** Print a list of tags *)
+(** Html of a list of tags *)
 val tags_html : string list -> Html.t
+
+(** Template for a website page *)
+val template : Html.t list -> Html.t
