@@ -10,7 +10,8 @@ type part = {
   date : date option ;
   default_language : string option ;
   updated : date option ;
-  tags : string list option
+  tags : string list option ;
+  summary : string option
 }
 
 type header = {
@@ -19,7 +20,8 @@ type header = {
   _date : int * int * int ;
   _default_language : string option ;
   _updated : date option ;
-  _tags : string list option
+  _tags : string list option ;
+  _summary : string option
 }
 
 type t = {
@@ -59,9 +61,18 @@ let check c =
       date = Some _date ;
       default_language = _default_language ;
       updated = _updated ;
-      tags = _tags
+      tags = _tags ;
+      summary = _summary
     } ->
-    { _title ; _authors ; _date ; _default_language ; _updated ; _tags }
+    {
+      _title ;
+      _authors ;
+      _date ;
+      _default_language ;
+      _updated ;
+      _tags ;
+      _summary
+    }
   | _ -> assert false
   end
 
@@ -95,6 +106,11 @@ let with_tags c tags =
   | None -> { c with tags = Some tags }
   | Some _ -> error "Cannot set 'tags' twice"
 
+let with_summary c s =
+  match c.summary with
+  | None -> { c with summary = Some s }
+  | Some _ -> error "Cannot set 'summary' twice"
+
 let rec from_ast c ast =
   match ast with
   | Title title :: ast -> from_ast (with_title c title) ast
@@ -103,6 +119,7 @@ let rec from_ast c ast =
   | Default_language s :: ast -> from_ast (with_default_language c s) ast
   | Updated (d,m,y) :: ast -> from_ast (with_updated c (d,m,y)) ast
   | Tags tags :: ast -> from_ast (with_tags c tags) ast
+  | Summary s :: ast -> from_ast (with_summary c s) ast
   | [] -> check c
 
 let from_file f =
@@ -122,7 +139,8 @@ let from_file f =
     date = None ;
     default_language = None ;
     updated = None ;
-    tags = None
+    tags = None ;
+    summary = None
   } in
   let header = from_ast default ast in
   let content = Omd.of_string content in
@@ -147,6 +165,8 @@ let default_language a = a.header._default_language
 let updated a = a.header._updated
 
 let tags a = a.header._tags
+
+let summary a = a.header._summary
 
 let content a = a.content
 

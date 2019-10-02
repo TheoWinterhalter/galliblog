@@ -29,6 +29,9 @@ val updated : t -> date option
 (** List of tags *)
 val tags : t -> string list option
 
+(** Summary *)
+val summary : t -> string option
+
 (** Content of an article *)
 val content : t -> Html.t list
 

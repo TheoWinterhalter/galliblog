@@ -14,6 +14,7 @@
     |> h_add "language" LANGUAGE
     |> h_add "updated"  UPDATED
     |> h_add "tags"     TAGS
+    |> h_add "summary"  SUMMARY
 
 }
 

@@ -3,6 +3,7 @@ authors: "Théo Winterhalter", "no one else"
 date: 29/09/2019
 updated: 02/10/2019
 tags: "omd", "markdown", "blog"
+summary: "This article is basically a test of the different features available for the blog."
 ----------------------------------------
 Welcome on Galliblog the Gallinette blog. I use the amazing [omd]
 markdown parser, and bits of parsing that I did myself.

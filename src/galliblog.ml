@@ -36,10 +36,11 @@ let () =
       a [ href ("article/" ^ na ^ ".html") ] [
         h4 [] [ text (Article.title f) ]
       ] ::
-      p [] (authors_html (Article.authors f)) ::
+      (Article.summary f >>>= fun t -> p [ classes [ "summary" ] ] [ text t ]) -::
+      (p [] (authors_html (Article.authors f)) ::
       p [] [ text (date_text (Article.date f) (Article.updated f))] ::
       (Article.tags f >>>= tags_html) -::
-      []
+      [])
     )
   in
   let articles =
