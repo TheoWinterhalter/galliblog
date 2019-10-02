@@ -48,9 +48,7 @@ For the moment `v0.9.3` is the only option (not even an option at this point).
 ## What's next
 
 - Syntax highlighting.
-- Making the whole blog engine.
 - `jscoq`!
-- Some css.
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
 - Tags

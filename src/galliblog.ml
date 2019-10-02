@@ -77,7 +77,7 @@ let () =
   let html_entry (na, f) =
     li [] [
       a [ href ("article/" ^ na ^ ".html") ] [
-        h3 [] [ text (Article.title f) ]
+        h4 [] [ text (Article.title f) ]
       ] ;
       p [] (authors_html (Article.authors f)) ;
       p [] [ text (date_text (Article.date f) (Article.updated f))]
@@ -102,10 +102,19 @@ let () =
         link [ rel "stylesheet" ; href ("blog.css") ] ;
       ] ;
       body [] [
+        header [ classes [ "main" ] ] [
+          h1 [] [ text "Galliblog" ] ;
+          h2 [] [
+            text "The " ;
+            a [ href "../../index.html" ] [
+              text "Gallinette"
+            ] ;
+            text " blog"
+          ]
+        ] ;
         main [] [
-          h1 [] [ text "Welcome to Galliblog" ] ;
-          h2 [] [ text "List of articles" ] ;
-          ul [] articles
+          h3 [] [ text "List of articles" ] ;
+          ul [ classes [ "articles" ] ] articles
         ]
       ]
     ]

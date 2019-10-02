@@ -169,9 +169,21 @@ let page article =
         rel "stylesheet" ;
         typ "text/css"
       ] ;
-      link [ rel "stylesheet" ; href ("blog.css") ] ;
+      link [ rel "stylesheet" ; href ("../blog.css") ] ;
     ] ;
     body [] [
+      header [ classes [ "main" ] ] [
+        a [ href "../index.html" ] [
+          h1 [] [ text "Galliblog" ]
+        ] ;
+        h2 [] [
+          text "The " ;
+          a [ href "../../index.html" ] [
+            text "Gallinette"
+          ] ;
+          text " blog"
+        ]
+      ] ;
       article [] (
         header [] (
           h1 [] [ text titl ] ::
