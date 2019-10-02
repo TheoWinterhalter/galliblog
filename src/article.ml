@@ -1,3 +1,4 @@
+open Util
 open Lexing
 open Article_ast
 
@@ -122,12 +123,6 @@ let date a = a.header._date
 let default_language a = a.header._default_language
 
 let content a = a.content
-
-let rec list_cat_sep sep l =
-  match l with
-  | [] -> []
-  | [ e ] -> [ e ]
-  | e :: l -> e :: sep :: list_cat_sep sep l
 
 let authors_html l =
   let open Attribute in

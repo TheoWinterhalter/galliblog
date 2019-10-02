@@ -13,3 +13,9 @@ module OptionMonad = struct
   let return x = Some x
 
 end
+
+let rec list_cat_sep sep l =
+  match l with
+  | [] -> []
+  | [ e ] -> [ e ]
+  | e :: l -> e :: sep :: list_cat_sep sep l
