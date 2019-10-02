@@ -109,10 +109,36 @@ let _members = [
 
 let members = template _members
 
-let _papers =
-  let file = open_in "content/papers.html" in
-  let s = really_input_string file (in_channel_length file) in
-  close_in file ;
-  [ text s ]
+let format_name p =
+  People.(p.firstname ^ "%2C" ^ p.lastname)
 
-let papers = html [] _papers
+let format_names =
+  begin match People.(members @ past_members) with
+  | h :: t ->
+    List.fold_left (fun s p -> s ^ "%3B" ^ (format_name p)) (format_name h) t
+  | [] -> ""
+  end
+
+let hal_url =
+  "https://haltools.archives-ouvertes.fr/Public/afficheRequetePubli.php?auteur_exp=" ^
+  format_names ^
+  "&struct=Gallinette&CB_auteur=oui&CB_titre=oui&CB_article=oui&CB_typdoc=oui&langue=Anglais&tri_exp=annee_publi&tri_exp2=typdoc&tri_exp3=date_publi&ordre_aff=TA&Fen=Aff&css=../css/VisuRubriqueEncadre.css"
+
+let _papers = [
+  section [ id "hal_target" ] [
+    h3 [] [ text "Publications" ] ;
+    p [] [
+      text "Javascript is likely not activated on your browser." ;
+      br [] ;
+      lnk hal_url "See our publications on HAL."
+    ]
+  ] ;
+  script [ typ "text/javascript" ] [
+    text "
+      var node = document.getElementById('hal_target');
+      var app = Elm.Main.embed(node);
+    "
+  ]
+]
+
+let papers = template _papers
