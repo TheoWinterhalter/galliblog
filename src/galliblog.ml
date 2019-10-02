@@ -35,7 +35,7 @@ let fname file =
 
 let make_article file =
   let entry = Article.from_file ("content/articles/" ^ file) in
-  let output = open_out ("website/" ^ (fname file) ^ ".html") in
+  let output = open_out ("website/article/" ^ (fname file) ^ ".html") in
   let page = Article.page entry in
   Printf.fprintf output "%s" (Html.document_to_string page) ;
   close_out output ;
@@ -63,6 +63,7 @@ let date_text (d,m,y) updated =
 
 let () =
   fmkdir "website" ;
+  fmkdir "website/article" ;
   copy "content/blog.css" "website/blog.css" ;
   let articles =
     Sys.readdir "content/articles"
@@ -75,7 +76,7 @@ let () =
   let open Html in
   let html_entry (na, f) =
     li [] [
-      a [ href (na ^ ".html") ] [
+      a [ href ("article/" ^ na ^ ".html") ] [
         h3 [] [ text (Article.title f) ]
       ] ;
       p [] (authors_html (Article.authors f)) ;
