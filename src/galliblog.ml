@@ -53,25 +53,13 @@ let authors_html l =
   |> list_cat_sep (text " and ")
   |> fun l -> text "By " :: l @ [ text "." ]
 
-(* TODO Same *)
-let month = function
-  | 1 -> "January"
-  | 2 -> "February"
-  | 3 -> "March"
-  | 4 -> "April"
-  | 5 -> "May"
-  | 6 -> "June"
-  | 7 -> "July"
-  | 8 -> "August"
-  | 9 -> "September"
-  | 10 -> "October"
-  | 11 -> "November"
-  | 12 -> "December"
-  | _ -> "???"
-
-(* TODO Same *)
-let date_text (d,m,y) =
-  Printf.sprintf "On %d %s %d." d (month m) y
+let date_text (d,m,y) updated =
+  begin match updated with
+  | Some (d',m',y') ->
+    Printf.sprintf
+      "On %d %s %d, last updated on %d %s %d." d (month m) y d' (month m') y'
+  | None -> Printf.sprintf "On %d %s %d." d (month m) y
+  end
 
 let () =
   fmkdir "website" ;
@@ -91,7 +79,7 @@ let () =
         h3 [] [ text (Article.title f) ]
       ] ;
       p [] (authors_html (Article.authors f)) ;
-      p [] [ text (date_text (Article.date f))]
+      p [] [ text (date_text (Article.date f) (Article.updated f))]
     ]
   in
   let articles =

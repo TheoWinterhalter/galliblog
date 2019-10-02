@@ -1,7 +1,6 @@
 (** Article file AST *)
 
-(** Date [d/m/y] *)
-type date = int * int * int
+open Util
 
 (** Header options *)
 type header =

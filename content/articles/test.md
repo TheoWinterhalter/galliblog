@@ -53,13 +53,11 @@ For the moment `v0.9.3` is the only option (not even an option at this point).
 - Some css.
 - Table of contents (since [omd] seem to provide it).
 - Collect references to put at the end?
-- Update date on list
 - Tags
 - Search (when it becomes necessary)
 - Generating the whole galinette website
 - Deal with possible `index.md`.
 - Factorise in `Html_util`.
-- Move `date` util and def in `Util`.
 
 [jscoq]: https://github.com/ejgallego/jscoq
 [omd]: https://github.com/ocaml/omd

@@ -1,5 +1,7 @@
 (** Blog article *)
 
+open Util
+
 (** Type of blog article *)
 type t
 
@@ -15,14 +17,14 @@ val title : t -> string
 (** Authors of an article *)
 val authors : t -> string list
 
-(** Publishing date of an article, day/month/year *)
-val date : t -> int * int * int
+(** Publishing date of an article *)
+val date : t -> date
 
 (** Default language *)
 val default_language : t -> string option
 
 (** Last update date *)
-val updated : t -> (int * int * int) option
+val updated : t -> date option
 
 (** Content of an article *)
 val content : t -> Html.t list

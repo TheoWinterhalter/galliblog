@@ -146,21 +146,6 @@ let authors_html l =
   |> list_cat_sep (text " and ")
   |> fun l -> text "By " :: l @ [ text "." ]
 
-let month = function
-  | 1 -> "January"
-  | 2 -> "February"
-  | 3 -> "March"
-  | 4 -> "April"
-  | 5 -> "May"
-  | 6 -> "June"
-  | 7 -> "July"
-  | 8 -> "August"
-  | 9 -> "September"
-  | 10 -> "October"
-  | 11 -> "November"
-  | 12 -> "December"
-  | _ -> "???"
-
 let date_text (d,m,y) =
   Printf.sprintf "On %d %s %d." d (month m) y
 
